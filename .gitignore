@@ -1,0 +1,10 @@
+node_modules
+dist
+public/mediapipe
+.DS_Store
+*.local
+.omo
+
+# 비밀 값(API 키 등)은 저장소에 올리지 않는다
+*.env
+.env*
