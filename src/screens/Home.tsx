@@ -1,6 +1,6 @@
 import { getExercise } from '../data/exercises';
 import { buildRoutine } from '../lib/routine';
-import type { Settings } from '../lib/types';
+import type { Instructor, Settings } from '../lib/types';
 import { VolumeControl } from '../components/VolumeControl';
 
 interface HomeProps {
@@ -10,6 +10,11 @@ interface HomeProps {
 }
 
 const QUICK_MINUTES = [1, 3, 5, 10];
+
+const INSTRUCTORS: Array<{ id: Instructor; name: string }> = [
+  { id: 'female', name: '여성 강사님' },
+  { id: 'male', name: '남성 강사님' },
+];
 
 interface PreviewGroup {
   id: string;
@@ -54,6 +59,40 @@ export function Home({ settings, onChange, onStart }: HomeProps) {
             카메라가 자세를 보고 부드럽게 알려 드려요.
           </p>
         </header>
+
+        <section className="card" aria-labelledby="instructor-heading">
+          <div className="card__head">
+            <h2 id="instructor-heading">강사님 선택</h2>
+            <span className="card__meta">시범을 보여 줄 강사님을 골라 주세요</span>
+          </div>
+          <div className="instructor-picker">
+            {INSTRUCTORS.map((item) => {
+              const selected = settings.instructor === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={selected ? 'instructor instructor--active' : 'instructor'}
+                  onClick={() => onChange({ instructor: item.id })}
+                  aria-pressed={selected}
+                >
+                  <img
+                    className="instructor__photo"
+                    src={`/images/instructors/${item.id}/portrait.jpg`}
+                    alt=""
+                    onError={(event) => {
+                      event.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  <span className="instructor__text">
+                    <strong>{item.name}</strong>
+                    <span>{selected ? '선택됨' : '선택하기'}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
 
         <section className="card" aria-labelledby="time-heading">
           <div className="card__head">

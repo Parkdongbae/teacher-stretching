@@ -5,6 +5,7 @@ const SETTINGS_KEY = 'stretching.settings.v1';
 const HISTORY_KEY = 'stretching.history.v1';
 
 export const DEFAULT_SETTINGS: Settings = {
+  instructor: 'female',
   minutes: 3,
   volume: 60,
   musicOn: true,
@@ -34,6 +35,10 @@ export function loadSettings(): Settings {
     if (!raw) return { ...DEFAULT_SETTINGS };
     const parsed = JSON.parse(raw) as Partial<Settings>;
     return {
+      instructor:
+        parsed.instructor === 'female' || parsed.instructor === 'male'
+          ? parsed.instructor
+          : DEFAULT_SETTINGS.instructor,
       minutes:
         typeof parsed.minutes === 'number'
           ? clamp(Math.round(parsed.minutes), 1, 10)

@@ -1,7 +1,7 @@
 ﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AccuracyRing } from '../components/AccuracyRing';
 import { CameraView } from '../components/CameraView';
-import { DemoFigure } from '../components/DemoFigure';
+import { DemoPhoto } from '../components/DemoPhoto';
 import { VolumeControl } from '../components/VolumeControl';
 import { playChime, playComplete, playDing } from '../audio/sfx';
 import { speak } from '../audio/voice';
@@ -127,7 +127,7 @@ export function Session({
       setFeedback(
         step.side === 'left'
           ? '반대쪽도 같은 방법으로 따라 해 보세요'
-          : '시범 그림을 보고 자세를 맞춰 주세요',
+          : '강사님 시범을 보고 자세를 맞춰 주세요',
       );
       if (index > 0) playChime(ambient?.context ?? null);
       const prefix = step.side === 'left' ? '반대쪽. ' : '';
@@ -201,7 +201,7 @@ export function Session({
 
   useEffect(() => {
     if (timerOnly || !baseline) {
-      setFeedback('카메라 없이 진행 중입니다. 시범 그림을 따라 해 보세요');
+      setFeedback('카메라 없이 진행 중입니다. 강사님 시범을 따라 해 보세요');
     }
   }, [baseline, timerOnly]);
 
@@ -294,7 +294,13 @@ export function Session({
             {exercise.name}
             {sideLabel && <span className="session__side">{sideLabel}</span>}
           </h1>
-          <DemoFigure demo={exercise.demo} side={currentStep.side} />
+          <DemoPhoto
+            exerciseId={currentStep.exerciseId}
+            side={currentStep.side}
+            instructor={settings.instructor}
+            demo={exercise.demo}
+            name={exercise.name}
+          />
           {isBreathe && phase === 'hold' && (
             <div className="breath">
               <div className="breath__circle" aria-hidden="true" />
@@ -315,7 +321,7 @@ export function Session({
               <p className="eyebrow">타이머 모드</p>
               <p>카메라 없이 진행하고 있어요.</p>
               <p className="session__timer-only-note">
-                시범 그림과 안내에 맞춰 천천히 따라 해 보세요.
+                강사님 시범과 안내에 맞춰 천천히 따라 해 보세요.
               </p>
             </div>
           ) : (

@@ -562,6 +562,6 @@ export function feedbackFor(evaluation: Evaluation, smoothedScore: number): stri
   if (level === 'good') return '좋아요! 그대로 유지하세요';
   const lowest = lowestCheck(evaluation);
   if (level === 'warn') return lowest?.hint ?? '조금만 더 자세를 맞춰 보세요';
-  const base = '시범 그림을 보고 자세를 맞춰 주세요';
+  const base = '강사님 시범을 보고 자세를 맞춰 주세요';
   return lowest ? `${base} · ${lowest.hint}` : base;
 }

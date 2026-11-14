@@ -19,7 +19,7 @@ function encouragement(result: SessionResult): string {
   if (result.timerOnly) return '타이머 모드로 끝까지 해냈어요. 다음에는 카메라와 함께해 보세요.';
   if (result.averageScore >= 0.8) return '아주 좋아요! 자세를 끝까지 잘 유지했어요.';
   if (result.averageScore >= 0.5) return '잘했어요. 다음에는 조금 더 천천히 자세를 맞춰 보세요.';
-  return '오늘은 여기까지! 내일은 시범 그림을 보며 천천히 따라 해 봐요.';
+  return '오늘은 여기까지! 내일은 강사님 시범을 보며 천천히 따라 해 봐요.';
 }
 
 export function Summary({ result, stats, onRestart, onHome }: SummaryProps) {

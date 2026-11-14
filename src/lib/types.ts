@@ -110,7 +110,11 @@ export interface SetupResult {
   primaryHint: string | null;
 }
 
+/** 시범을 보여 줄 강사 */
+export type Instructor = 'female' | 'male';
+
 export interface Settings {
+  instructor: Instructor;
   minutes: number;
   volume: number;
   musicOn: boolean;
